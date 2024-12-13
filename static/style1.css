@@ -1,0 +1,151 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    color: #fff; /* Default text color for better contrast */
+}
+
+/* Container for Horizontal Alignment */
+.header-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 20px; /* Space between headers */
+    margin-top: 20px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    width: 100%;
+    max-width: 1200px; /* Restrict max width for alignment */
+    padding: 0 10px; /* Add some padding to the sides */
+}
+
+/* Glass Header Styling */
+.glass-header {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, background 0.3s ease;
+    flex: 1; /* Equal space distribution */
+    max-width: 300px; /* Control individual box size */
+    min-width: 200px; /* Maintain a minimum size */
+}
+
+.glass-header:hover {
+    transform: scale(1.08);
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.glass-header h1 {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.glass-header p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+/* Glass Form Styling */
+.glass-form {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.glass-form h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+}
+
+/* Form Fields */
+.glass-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    color: #333;
+    font-size: 16px;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+.glass-form input:focus {
+    box-shadow: 0 0 5px #6a11cb, 0 0 10px #2575fc;
+}
+
+/* Submit Button */
+.glass-form .button {
+    display: inline-block;
+    background: linear-gradient(90deg, #6a11cb, #2575fc);
+    color: #fff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.glass-form .button:hover {
+    background: linear-gradient(90deg, #2575fc, #6a11cb);
+    transform: scale(1.05);
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px; /* Adjust spacing for smaller screens */
+    }
+
+    .glass-header {
+        max-width: 100%; /* Allow full width */
+    }
+
+    .glass-form {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px; /* Adjust font size for very small screens */
+    }
+
+    .glass-form h2 {
+        font-size: 22px;
+    }
+
+    .glass-form input {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .glass-form .button {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}

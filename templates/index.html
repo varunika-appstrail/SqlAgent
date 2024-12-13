@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <title>Database Connector</title>
+</head>
+<body>
+    <!-- Horizontal Container for Headers -->
+    <form method="POST"> <!-- Added method="POST" -->
+        <div class="header-container">
+            <header class="glass-header">
+                <input type="radio" name="dbtype" value="mariadb" id="mariadb" required>
+                <label for="mariadb">
+                    <h1>MariaDB</h1>
+                    <p>Click below to connect to MariaDB</p>
+                </label>
+            </header>
+            <header class="glass-header">
+                <input type="radio" name="dbtype" value="mysql" id="mysql" required>
+                <label for="mysql">
+                    <h1>MySQL</h1>
+                    <p>Click below to connect to MySQL</p>
+                </label>
+            </header>
+            <header class="glass-header">
+                <input type="radio" name="dbtype" value="postgresql" id="postgresql" required>
+                <label for="postgresql">
+                    <h1>PostgresSQL</h1>
+                    <p>Click below to connect to PostgresSQL</p>
+                </label>
+            </header>
+        </div>
+
+        <!-- Glassmorphic Form -->
+        <section class="glass-form">
+            <h2>Connect</h2>
+            <input type="text" id="uname" name="uname" placeholder="username" required>
+            <input type="password" id="pass" name="pass" placeholder="password">
+            <input type="text" id="hname" name="hname" placeholder="host" required>
+            <input type="text" id="pno" name="pno" placeholder="port number" required>
+            <button type="submit" class="button">Connect</button>
+        </section>
+    </form>
+
+    {% if databases %}
+        <h2>Databases:</h2>
+        <ul>
+            {% for db in databases %}
+                <li>{{ db }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

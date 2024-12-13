@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Login - Sales Agent Chatbot</title>
+  <style>
+    body {
+      font-family: 'Inter',sans-serif;
+      /* text-shadow: 4px 4px 4px #ababab; */
+      margin: 0;
+      padding: 0;
+      background: url("{{ url_for('static', filename='images/11.jpeg') }}") no-repeat center center fixed;
+      background-size: cover; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    h1 {
+      color: #0056b3;
+      font-weight:1000;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-container {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #0056b3;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      border: 1px solid #d0d7de;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      border-color: #0056b3;
+      outline: none;
+    }
+
+    button {
+      background-color: #0056b3;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #003d80;
+    }
+
+    p {
+      text-align: center;
+      color: #555555;
+    }
+
+    p a {
+      color: #0056b3;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+    }
+
+    #error-message {
+      color: red;
+      font-weight: 600;
+      text-align: center;
+      margin-top: 10px;
+    }
+   
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 20px;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login</h1>
+  
+    <form action="/login" method="POST">
+      <label for="user_id">User ID:</label>
+      <input type="text" id="user_id" name="user_id" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Login</button>
+    </form>
+    <p>New user? <a href="/register">Click here to register</a></p>
+    <p id="error-message">{{ error_message }}</p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="shortcut icon" type="x-icon" href="static\images\bot.png">
+  <title>Sales Agent Chatbot</title>
+  <style>
+    /* Button hover effect */
+    #send-button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+ 
+    #send-button:hover {
+      background-color: #0056b3;
+    }
+ 
+    #send-button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="{{ url_for('static', filename='images/appstrail_white.png') }}" alt="Company Logo" class="company-logo">
+    </div>
+    <!-- <img id='watermark' src="static\images\bot.png" alt="Watermark"> -->
+ 
+    <ul class="nav-links">
+      <li><a href="https://www.appstrail.com/" target="_blank"><b class="icon">&#x1F3E0;</b> Home</a></li>
+      <li><a href="#"><b class="icon">&#x1F4C5;</b> Event Scheduler</a></li>
+      <li><a href="#"><b class="icon">&#x1F4CB;</b> Event Display</a></li>
+      <li><a href="#"><b class="icon">&#x1F4E6;</b> Product Info</a></li>
+      <li><a href="#"><b class="icon">&#x1F4E7;</b> Mail Agent</a></li>
+      <li><a href="https://www.appstrail.com/who-we-are" target="_blank"><b class="icon">&#x1F4D6;</b> About Us</a></li>
+      <li><a href="https://www.appstrail.com/contact" target="_blank"><b class="icon">&#x260E;</b> Contact Us</a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <a href="#"><i class="icon">&#x2753;</i> Help</a>
+      <a href="#"><i class="icon">&#x1F511;</i> Logout</a>
+    </div>
+  </div>
+ 
+  <div class="chat-container">
+    <div class="header">
+      <h1>Sales Agent Chatbot</h1>
+    </div>
+    <div id="chat-window">
+      <div id="output"></div>
+    </div>
+    <div class="input-area">
+      <input id="user-input" type="text" placeholder="Type your message here...">
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+ 
+  <script src="https://cdn.socket.io/4.5.0/socket.io.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+  <script>
+    const socket = io();
+    const sendMessage = () => {  
+      const message = document.getElementById("user-input").value;  
+      if (message.trim()) {  
+        const userMessageHTML = `
+      <div class="message-container user-message">
+      <img src="{{ url_for('static', filename='images/user.png') }}" alt="User Avatar" class="profile-pic">
+      <p class="user">${message}</p>
+      </div>
+            `;
+   
+        document.getElementById("output").innerHTML += userMessageHTML;  
+        socket.emit("send_message", { message });  
+        document.getElementById("user-input").value = "";
+        document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight;  
+      }  
+    };
+    // Send message on button click  
+    document.getElementById("send-button").addEventListener("click", sendMessage);  
+    // Send message on Enter key press  
+    document.getElementById("user-input").addEventListener("keydown", (event) => {  
+      if (event.key === "Enter") {  
+        event.preventDefault();  
+        sendMessage();
+      }  
+    });  
+ 
+    socket.on("receive_message", (data) => {
+  // Directly inject the formatted HTML response
+  const formattedMessage = data.message;
+ 
+  const botMessageHTML = `
+    <div class="message-container bot-message">
+      <div class="bot-message-bubble">
+        <img src="{{ url_for('static', filename='images/chatbot_logo1.png') }}" alt="Bot Avatar" class="profile-pic">
+        <div class="bot-content">${formattedMessage}</div>
+      </div>
+    </div>
+  `;
+ 
+  document.getElementById("output").innerHTML += botMessageHTML;
+  document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight;
+});
+ 
+  </script>
+   
+</body>
+</html>
+ 
