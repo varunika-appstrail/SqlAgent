@@ -3,6 +3,8 @@ from datetime import datetime
 import ast
 from core.llm_manager import LLMManger
 from Database.database_utils import AppSettings
+from Prompt.prompt_loader import PromptLoader
+ 
 
 
 llm=LLMManger()
@@ -69,12 +71,8 @@ class ChatHistory:
 
     def insert(self, user_id: str, input_message: str, final_response_content: str, state: dict):
         try:
-            system_message = (
-                "You are a helpful assistant. Please identify if the user's message contains any of the following personal details: "
-                "name, age, likes, or dislikes. Respond strictly in dictionary format with only the detected details, "
-                "Example output: {'name': 'John', 'age': '29', 'likes': 'reading', 'dislikes': 'loud music'}. "
-                "If no personal details are present, respond as a friendly chatbot would to a general greeting or question."
-            )
+            system_message = PromptLoader().get_prompt("chat_history_system_prompt")
+ 
             messages = [{"role": "user", "content": input_message}]
             raw_output = llm.invoke([{"role": "system", "content": system_message}] + messages)
             output = raw_output.content.strip().replace("'''", "").replace("json", "").replace("```", "")
